@@ -14,9 +14,9 @@ firebase.initializeApp({
     //serviceAccount: 'myapp-13ad200fc320.json', //this is file that I downloaded from Firebase Console
 });
 
-const accountSid = process.env.FILLIPI;
-const authToken = process.env.AUTH_KEY;
-var client = new twilio(accountSid, authToken);
+// const accountSid = process.env.FILLIPI;
+// const authToken = process.env.AUTH_KEY;
+// var client = new twilio(accountSid, authToken);
 
  app.use(bodyParser.urlencoded({ extended: true }))
  app.use(bodyParser.json());
