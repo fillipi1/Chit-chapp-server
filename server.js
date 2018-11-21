@@ -14,9 +14,9 @@ firebase.initializeApp({
     //serviceAccount: 'myapp-13ad200fc320.json', //this is file that I downloaded from Firebase Console
 });
 
-// const accountSid = process.env.FILLIPI;
-// const authToken = process.env.AUTH_KEY;
-// var client = new twilio(accountSid, authToken);
+const accountSid = process.env.FILLIPI;
+const authToken = process.env.AUTH_KEY;
+ var client = new twilio(accountSid, authToken);
 
  app.use(bodyParser.urlencoded({ extended: true }))
  app.use(bodyParser.json());
@@ -65,15 +65,15 @@ app.post('/sms', function (req, res) {
     var ref = firebase.database().ref('messages/all');
     ref.child(incomingNum).once("value", snapshot => {
         //if the number isnt in the database then add it
-        if(!(snapshot.exists())){
-            //set the incmoming number key first
-            ref.child(incomingNum).set(0);
-        }
+        // if(!(snapshot.exists())){
+        //     //set the incmoming number key first
+        //     ref.child(incomingNum).set(0);
+        // }
         //add the message
         var newMessageKey = ref.child(incomingNum).push().key;
         var updates = {};
 
-         updates['messages/all/' + incomingNum + '/' + newMessageKey] = newMessageData;
+         updates['messages/' + incomingNum + '/all/' + newMessageKey] = newMessageData;
          firebase.database().ref().update(updates);
     });
     // let textRef = firebase.database().ref('customers').on("value", function(snapshot) {
