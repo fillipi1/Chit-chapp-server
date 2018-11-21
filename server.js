@@ -53,7 +53,7 @@ app.get('/records', function (req, res) {
  });
 
 app.post('/sms', function (req, res) {
-    console.log('received')
+    console.log('suckaaaa')
     let incomingNum = req.body.From;
 
     var newMessageData = {
@@ -62,7 +62,7 @@ app.post('/sms', function (req, res) {
     timestamp: Date.now(),
     message: req.body.Body
     };
-    var ref = firebase.database().ref('messages(trial)');
+    var ref = firebase.database().ref('messages/all');
     ref.child(incomingNum).once("value", snapshot => {
         //if the number isnt in the database then add it
         if(!(snapshot.exists())){
@@ -73,7 +73,7 @@ app.post('/sms', function (req, res) {
         var newMessageKey = ref.child(incomingNum).push().key;
         var updates = {};
 
-         updates['messages(trial)/' + incomingNum + '/' + newMessageKey] = newMessageData;
+         updates['messages/all/' + incomingNum + '/' + newMessageKey] = newMessageData;
          firebase.database().ref().update(updates);
     });
     // let textRef = firebase.database().ref('customers').on("value", function(snapshot) {
